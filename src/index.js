@@ -1,18 +1,17 @@
-// Test import of a JavaScript function
-import {example} from './js/example'
+import React from 'react'
+import ReactDOM from 'react-dom'
+// import './index.css'
+import App from './App'
+import reportWebVitals from './reportWebVitals'
 
-// Test import of an asset
-import webpackLogo from './images/webpack-logo.svg'
+ReactDOM.render(
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>,
+    document.getElementById('root')
+)
 
-// Test import of styles
-import './styles/index.scss'
-
-// Appending to the DOM
-const logo = document.createElement('img')
-logo.src = webpackLogo
-
-const heading = document.createElement('h1')
-heading.textContent = example()
-
-const app = document.querySelector('#root')
-app.append(logo, heading)
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals()
