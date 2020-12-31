@@ -1,5 +1,10 @@
 import React, { useContext, createContext, useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link, Redirect, useHistory, useLocation } from 'react-router-dom'
+import Tree from './components/Tree'
+import routes from '../config/routes'
+import menuList from '../config/meun'
+import loadable from '@loadable/component'
+import renderRoutes from './components/RenderRoutes'
 
 // This example has 3 pages: a public page, a protected
 // page, and a login screen. In order to see the protected
@@ -16,47 +21,6 @@ import { BrowserRouter as Router, Switch, Route, Link, Redirect, useHistory, use
 // and you'll see you go back to the page you visited
 // just *before* logging in, the public page.
 
-const authContext = createContext()
-
-function ProvideAuth({ children }) {
-    console.log(children, 'children')
-    const auth = useProvideAuth()
-    return <authContext.Provider value={auth}>{children}</authContext.Provider>
-}
-
-export default function App() {
-    return (
-        <ProvideAuth>
-            <Router>
-                <div>
-                    <AuthButton />
-
-                    <ul>
-                        <li>
-                            <Link to="/public">Public Page</Link>
-                        </li>
-                        <li>
-                            <Link to="/protected">Protected Page</Link>
-                        </li>
-                    </ul>
-
-                    <Switch>
-                        <Route path="/public">
-                            <PublicPage />
-                        </Route>
-                        <Route path="/login">
-                            <LoginPage />
-                        </Route>
-                        <PrivateRoute path="/protected">
-                            <ProtectedPage />
-                        </PrivateRoute>
-                    </Switch>
-                </div>
-            </Router>
-        </ProvideAuth>
-    )
-}
-
 const fakeAuth = {
     isAuthenticated: false,
     signin(cb) {
@@ -69,16 +33,7 @@ const fakeAuth = {
     },
 }
 
-/** For more details on
- * `authContext`, `ProvideAuth`, `useAuth` and `useProvideAuth`
- * refer to: https://usehooks.com/useAuth/
- */
-
-function useAuth() {
-    return useContext(authContext)
-}
-
-function useProvideAuth() {
+const useProvideAuth = () => {
     const [user, setUser] = useState(null)
 
     const signin = (cb) => {
@@ -102,7 +57,68 @@ function useProvideAuth() {
     }
 }
 
-function AuthButton() {
+const menuDataRender = (menuList) => {
+    return menuList.map((item, index) => {
+        if (item.children && item.children.length) {
+            return menuDataRender(item.children)
+        }
+        return (
+            <Link to={item.path}>
+                <h3>{item.name}</h3>
+            </Link>
+        )
+    })
+}
+
+const routerRender = (data) => {
+    return data.map((item, index) => {
+        if (item.routes && item.routes.length) {
+            return menuDataRender(item.routes)
+        }
+        return (
+            <PrivateRoute path={item.path} key={item.path}>
+                {item.component}
+            </PrivateRoute>
+        )
+    })
+}
+
+/** For more details on
+ * `authContext`, `ProvideAuth`, `useAuth` and `useProvideAuth`
+ * refer to: https://usehooks.com/useAuth/
+ */
+
+const authContext = createContext()
+
+export default function App() {
+    const auth = useProvideAuth()
+
+    const AsyncComponent = loadable((props) => import(`./${props.path}`))
+
+    const onSelect = (item) => {}
+
+    return (
+        <authContext.Provider value={auth}>
+            <AuthButton />
+            <Router>
+                <div className="main" id="main">
+                    <div className="menu">
+                        <Tree treeData={menuList} onSelect={onSelect} defaultExpandedKeys={['0-0-0']} />
+                    </div>
+                    <div className="content" id="content">
+                        {renderRoutes(routes)}
+                    </div>
+                </div>
+            </Router>
+        </authContext.Provider>
+    )
+}
+
+const useAuth = () => {
+    return useContext(authContext)
+}
+
+const AuthButton = () => {
     let history = useHistory()
     let auth = useAuth()
 
@@ -124,8 +140,9 @@ function AuthButton() {
 
 // A wrapper for <Route> that redirects to the login
 // screen if you're not yet authenticated.
-function PrivateRoute({ children, ...rest }) {
+const PrivateRoute = ({ children, ...rest }) => {
     let auth = useAuth()
+
     return (
         <Route
             {...rest}
@@ -145,15 +162,7 @@ function PrivateRoute({ children, ...rest }) {
     )
 }
 
-function PublicPage() {
-    return <h3>Public</h3>
-}
-
-function ProtectedPage() {
-    return <h3>Protected</h3>
-}
-
-function LoginPage() {
+const LoginPage = () => {
     let history = useHistory()
     let location = useLocation()
     let auth = useAuth()

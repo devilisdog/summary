@@ -1,0 +1,17 @@
+.name_icon {
+    display: flex;
+    flex-direction: row;
+
+    .name {
+        display: flex;
+        align-items: center;
+    }
+
+    .icon {
+        margin-left: 12px;
+        .cm-img-01 {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
