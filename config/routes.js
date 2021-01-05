@@ -1,12 +1,6 @@
 import React from 'react'
 import { HashRouter, Redirect } from 'react-router-dom'
-import Pcomp from '../src/components/Pcomp'
-import Page1 from '../src/page/page1'
-import Page2 from '../src/page/page2'
-import HomePage from '../src/page/homePage'
-import Tacos from '../src/page/Tacos'
-import Login from '../src/page/login'
-import BseicLayout from '../src/page/layout'
+import { Pcomp, Login, HomePage, Page1, Tacos } from '@src/components'
 
 const routes = [
     { path: '/login', exact: true, requiresAuth: false, component: Login, render: () => <Redirect to={'/login'} /> },

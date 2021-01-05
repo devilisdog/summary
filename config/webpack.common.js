@@ -1,4 +1,5 @@
 const paths = require('./paths')
+const path = require('path')
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -18,7 +19,7 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
         alias: {
-            // '@src': paths.resolve(__dirname, './src'),
+            '@src': path.resolve(__dirname, '../src'),
         },
     },
 
