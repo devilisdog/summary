@@ -1,6 +1,8 @@
 .name_icon {
     display: flex;
     flex-direction: row;
+    height: 40px;
+    line-height: 40px;
 
     .name {
         display: flex;
@@ -14,4 +16,9 @@
             height: 20px;
         }
     }
+}
+
+.menu_selected {
+    background-color: #e6f7ff;
+    color: #1890ff;
 }

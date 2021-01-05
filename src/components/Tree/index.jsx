@@ -10,6 +10,7 @@ class Tree extends React.Component {
         super(props)
         this.state = {
             keys: [],
+            menu_selected: null,
         }
     }
     componentWillMount() {
@@ -66,6 +67,11 @@ class Tree extends React.Component {
     }
     onSelect(e, item) {
         const { onSelect } = this.props
+
+        this.setState({
+            menu_selected: item.title,
+        })
+
         if (onSelect) {
             onSelect(item)
         }
@@ -82,7 +88,7 @@ class Tree extends React.Component {
         return arr.map((item, index) => {
             return (
                 <div key={index}>
-                    <div className="name_icon">
+                    <div className={`name_icon ${item.title == this.state.menu_selected ? 'menu_selected' : null}`}>
                         <Link to={item.path} className="name" onClick={(e) => this.onSelect(e, item)}>
                             {item.title}
                         </Link>

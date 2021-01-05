@@ -1,6 +1,14 @@
 import React from 'react'
-import { renderRoutes } from 'react-router-config'
+import renderRoutes from '../RenderRoutes'
 
-const Pcomp = (props) => <>{renderRoutes(props.route.routes)}</>
+const Pcomp = function (props) {
+    const { route } = props
+    return (
+        <div>
+            <h1>AdminLayout</h1>
+            {renderRoutes(route.routes)}
+        </div>
+    )
+}
 
 export default Pcomp

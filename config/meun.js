@@ -1,5 +1,5 @@
 const meun = [
-    { title: '首页', icon: '', path: '/' },
+    { title: '首页', icon: '', path: '/homePage' },
     {
         title: 'page1',
         icon: '',
