@@ -4,5 +4,6 @@ import HomePage from '@src/page/homePage'
 import Tacos from '@src/page/Tacos'
 import Login from '@src/page/login'
 import BseicLayout from '@src/page/layout'
+import useSlider from '@src/components/UseSlider'
 
-export { Pcomp, Page2, HomePage, Tacos, Login, BseicLayout }
+export { Pcomp, Page2, HomePage, Tacos, Login, BseicLayout, useSlider }

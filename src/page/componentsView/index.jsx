@@ -1,5 +1,5 @@
 import React from 'react'
-import useSlider from '@src/components/UseSlider'
+import { useSlider } from '@src/components'
 import './index.scss'
 
 export default function Page1() {
