@@ -20,7 +20,7 @@ const routes = [
     routes: [
       {
         path: "/page2/child1",
-        requiresAuth: true,
+        requiresAuth: false,
         exact: true,
         component: Tacos,
       },
