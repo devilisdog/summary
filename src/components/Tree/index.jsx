@@ -13,6 +13,7 @@ class Tree extends React.Component {
             menu_selected: null,
         }
     }
+
     componentWillMount() {
         const { defaultExpandedKeys, treeData, children } = this.props
         //处理默认样式
