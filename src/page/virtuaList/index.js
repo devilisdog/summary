@@ -20,6 +20,7 @@ export default class virtuaList extends React.Component {
     scrollContent = null
     componentDidMount() {
         const { itemHeight, bufferCount } = this.state
+
         /* 计算容器高度 */
         const scorllBoxHeight = this.listBox.offsetHeight
         const renderCount = Math.ceil(scorllBoxHeight / itemHeight) + bufferCount
@@ -51,9 +52,9 @@ export default class virtuaList extends React.Component {
     }
     /* 处理滚动效果 */
     render() {
-        console.log(1111)
         const { list, scorllBoxHeight, itemHeight, start, end } = this.state
         const renderList = list.slice(start, end)
+
         return (
             <div className="list_box" ref={(node) => (this.listBox = node)}>
                 <div
@@ -67,7 +68,7 @@ export default class virtuaList extends React.Component {
                     <div ref={(node) => (this.scrollContent = node)} style={{ position: 'relative', left: 0, top: 0, right: 0 }}>
                         {renderList.map((item, index) => (
                             <div className="list" key={index}>
-                                {item + ''} Item
+                                {`${item}   item`}
                             </div>
                         ))}
                     </div>
