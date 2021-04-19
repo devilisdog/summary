@@ -5,10 +5,8 @@ import AsyncRouter, { RouterHooks } from '@src/components/asyncRouter.js'
 import { Pcomp } from '@src/components'
 
 const HomePage = AsyncRouter(() => import('@src/page/homePage'))
-const Tacos = AsyncRouter(() => import('@src/page/Tacos'))
+const VirtuaList = AsyncRouter(() => import('@src/page/virtuaList'))
 const Login = AsyncRouter(() => import('@src/page/login'))
-
-// const HomePage = AsyncRouter(()=>import('@src/page/homePage'))
 
 import ComponentsView from '@src/page/componentsView'
 
@@ -23,21 +21,15 @@ const routes = [
     { path: '/homePage', exact: true, requiresAuth: false, component: HomePage },
     { path: '/componentsView', component: ComponentsView, requiresAuth: false },
     {
-        path: '/page2',
+        path: '/components',
         component: Pcomp,
         requiresAuth: false,
         routes: [
             {
-                path: '/page2/child1',
+                path: '/components/virtuaList',
                 requiresAuth: false,
                 exact: true,
-                component: Tacos,
-            },
-            {
-                path: '/page2/child2',
-                exact: true,
-                requiresAuth: false,
-                component: Tacos,
+                component: VirtuaList,
             },
         ],
     },

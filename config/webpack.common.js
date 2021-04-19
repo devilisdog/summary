@@ -4,6 +4,7 @@ const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HappyPack = require('happypack')
 
 module.exports = {
     // Where webpack looks to start building the bundle
@@ -55,13 +56,19 @@ module.exports = {
                 collapseWhitespace: true, //去除空格
             },
         }),
+
+        /* 多线程编译*/
+        new HappyPack({
+            id: 'babel',
+            loaders: ['babel-loader?cacheDirectory=true'],
+        }),
     ],
 
     // Determine how modules within the project are treated
     module: {
         rules: [
             // JavaScript: Use Babel to transpile JavaScript files
-            { test: /\.js|jsx$/, exclude: /node_modules/, use: ['babel-loader'] },
+            { test: /\.js|jsx$/, exclude: /node_modules/, use: ['happypack/loader?id=babel'] },
 
             // Styles: Inject CSS into the head with source maps
             {
