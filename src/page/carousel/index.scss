@@ -1,0 +1,51 @@
+.Carousel {
+    display: flex;
+    justify-content: center;
+    height: 250px;
+    .parent_box {
+        position: relative;
+        width: 600px;
+        overflow: hidden;
+
+        .point_list {
+            display: flex;
+            position: absolute;
+            left: 100px;
+            bottom: 10px;
+            cursor: pointer;
+            z-index: 2;
+        }
+        .scroll_box {
+            display: flex;
+            height: 100%;
+            position: absolute;
+            transform: translate3d(0, 0, 0);
+            transition-duration: 1s;
+            transition-property: all;
+            transition-timing-function: ease;
+
+            .scroll_item {
+                min-width: 600px;
+                justify-content: center;
+                display: flex;
+                border: 1px solid greenyellow;
+            }
+        }
+
+        .buttonLeft,
+        .buttonRight {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 30px;
+            background: red;
+        }
+        .buttonRight {
+            right: 0;
+        }
+        .buttonLeft {
+            left: 0;
+        }
+    }
+}

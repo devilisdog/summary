@@ -12,7 +12,7 @@ const meun = [
         path: '/components',
         children: [
             { title: '虚拟滚动列表', icon: '', path: '/components/virtuaList' },
-            // { title: '二级2', icon: '', path: '/components/child2' },
+            { title: '轮播图', icon: '', path: '/components/carousel' },
         ],
     },
 ]
