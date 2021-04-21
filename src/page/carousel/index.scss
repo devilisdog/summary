@@ -1,16 +1,16 @@
 .Carousel {
     display: flex;
     justify-content: center;
-    height: 250px;
+    height: 500px;
     .parent_box {
         position: relative;
-        width: 600px;
+        width: 900px;
         overflow: hidden;
 
         .point_list {
             display: flex;
             position: absolute;
-            left: 100px;
+            left: 45%;
             bottom: 10px;
             cursor: pointer;
             z-index: 2;
@@ -25,10 +25,9 @@
             transition-timing-function: ease;
 
             .scroll_item {
-                min-width: 600px;
+                min-width: 900px;
                 justify-content: center;
                 display: flex;
-                border: 1px solid greenyellow;
             }
         }
 
@@ -38,14 +37,16 @@
             top: 0;
             bottom: 0;
             margin: auto;
-            width: 30px;
-            background: red;
+            display: flex;
+            align-items: center;
         }
         .buttonRight {
             right: 0;
+            cursor: pointer;
         }
         .buttonLeft {
             left: 0;
+            cursor: pointer;
         }
     }
 }
