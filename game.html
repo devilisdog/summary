@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游戏</title>
+</head>
+<body>
+    <div>row1: <span id='oneRow'></span></div>
+    <div>row2: <span id='twoRow'></span></div>
+    <div>row3: <span id='threeRow'></span></div>
+
+    <div  style="margin-top: 16px;">
+        row:<input type="number" id='row'>
+        num:<input type="number" id='num'>
+    </div>
+    <div>
+        <button onclick="startGame('A')" style="margin-right: 40px;margin-top: 16px;"> A回合</button>
+        <button onclick="startGame('B')"> B回合</button>
+    </div>
+</body>
+<script>
+
+
+
+//自定义数组（可以传入）
+const arrOne=[1,2,3];
+const arrTwo=[4,5,6,7,8];
+const arrThree=[9,10,11,12,13,14,15];
+const totalArr=[arrOne,arrTwo,arrThree]
+let person=''
+const obj={
+    1:'oneRow',
+    2:'twoRow',
+    3:'threeRow',
+}
+
+function traverseFun(arr){
+    let str=''
+    for (let i = 0; i < arr.length; i++) {
+    str += '<span>' +" "+ arr[i]+' ' + '</span>';
+    }
+    return str
+}
+
+document.getElementById("oneRow").innerHTML = traverseFun(arrOne);
+document.getElementById("twoRow").innerHTML = traverseFun(arrTwo);
+document.getElementById("threeRow").innerHTML = traverseFun(arrThree);
+
+function startGame(gamer){
+       const row=document.getElementById('row').value-1
+       const num=document.getElementById('num').value
+
+       if(totalArr[row]===undefined){
+           alert('row error')
+           return
+       }
+       
+       if(num==''||num==0||totalArr[row].length<num){
+           alert('num error')
+           return 
+       }
+
+       if(person===gamer){
+          alert('你的回合已结束！')
+          return
+       }else{
+          person=gamer
+       }
+
+       for(i=0; i<num; i++){
+        totalArr[row].pop()
+        document.getElementById(`${obj[row+1]}`).innerHTML = traverseFun(totalArr[row]);
+           if(!gameOverFlag()){
+               alert(`玩家${person}失败，再接再厉！`)
+               return 
+           }
+       }
+
+       function gameOverFlag(){
+           let flag=false
+           totalArr.forEach((item)=>{
+                if(item.length>0){
+                    flag=true
+                    return false
+                }
+           })
+          return flag
+       }
+    　　
+}
+
+</script>
+</html>
