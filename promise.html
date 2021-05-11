@@ -16,13 +16,14 @@
             /**********  同步部分  *******/
 
             //对应构造函数内部successFun方法
-            resolve('ok')
+            // resolve('ok')
+           
 
               //对应构造函数内部errFun方法
             // reject('error')
 
             //构造函数内部使用try catch包装执行器函数实现
-            // throw "error"
+            throw "111"
 
 
             /**********  异步部分  *******/
@@ -33,17 +34,29 @@
             // },1000)   
         })
 
-    //    let res= p.then(value=>{console.log(value)},
-    //            reason=>{console.warn(reason)}
-    //         )
-
-           let res=p.then(value=>{console.log(111)}).then(value=>{console.log(222)}).then(value=>{console.log(333)})
-           .catch(
+        p.then(value=>{console.log(222)},
                reason=>{console.warn(reason)}
             )
 
 
-        console.log(res,'res')
+        //    let res=p.then(value=>{console.log(111)}).then(value=>{console.log(222)}).then(value=>{console.log(333)})
+        //    .catch(
+        //        reason=>{console.warn(reason)}
+        //     )
+
+        // let res=Promise.resolve(new Promise((resolve,reject)=>{
+        //     return reject('error')
+        // }))
+
+        let p1=new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                resolve('yeah')
+            },1000)
+        })
+        let p2=Promise.reject('error')
+        let p3=Promise.resolve('success')
+
+        console.log(p,'res')
 
             
 
