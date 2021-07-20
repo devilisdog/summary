@@ -1,20 +1,15 @@
 import React, { useRef, useEffect, useState } from 'react'
-import carousel1 from '@src/images/carousel1.jpg'
-import carousel2 from '@src/images/carousel2.jpg'
-import carousel3 from '@src/images/carousel3.jpg'
-import carousel4 from '@src/images/carousel4.jpg'
-import carousel5 from '@src/images/carousel5.jpg'
 import rightIcon from '@src/images/rightIcon.png'
 import leftIcon from '@src/images/leftIcon.png'
 
 import './index.scss'
 
 const arr = [
-    { id: 1, pircture: 1, background: carousel1 },
-    { id: 2, pircture: 2, background: carousel2 },
-    { id: 3, pircture: 3, background: carousel3 },
-    { id: 4, pircture: 4, background: carousel4 },
-    { id: 5, pircture: 5, background: carousel5 },
+    { id: 1, pircture: 1, background: '//cdnmusic.migu.cn/tycms_picture/21/05/133/21051321351362_1400x350_6570.jpg' },
+    { id: 2, pircture: 2, background: '//cdnmusic.migu.cn/tycms_picture/21/05/133/210513004642261_1400x350_3302.jpg' },
+    { id: 3, pircture: 3, background: '//cdnmusic.migu.cn/tycms_picture/20/03/79/200319225515423_1400x350_5570.jpg' },
+    { id: 4, pircture: 4, background: '//cdnmusic.migu.cn/tycms_picture/21/05/133/210513090033885_1400x350_6712.jpg' },
+    { id: 5, pircture: 5, background: '//cdnmusic.migu.cn/tycms_picture/21/05/130/210510093809848_1400x350_9948.jpg' },
 ]
 
 // 获取当前可视区容器宽度
@@ -30,7 +25,7 @@ export default function Carousel() {
         setTransition()
     }, [currentIndex])
 
-    const setTransition = (offset = 0) => {
+    const setTransition = () => {
         function transitionend() {
             // 动画结束后就关闭动画
             scroll_box_ref.current.style.transitionProperty = 'none'
@@ -38,7 +33,7 @@ export default function Carousel() {
             setStatus(1)
             // 当前位置在补位的位置时马上切换到本该在的位置
 
-            if (currentIndex === 1) {
+            if (currentIndex === 0) {
                 // 使用setTimeout包裹，避免transitionProperty动画未关闭就切换的闪频
                 setTimeout(() => {
                     setCurrentIndex(arr.length)
@@ -55,8 +50,7 @@ export default function Carousel() {
         scroll_box_ref.current.addEventListener('transitionend', transitionend, false)
 
         // 计算需要移动的距离并进行修改，这是切换的核心
-        const distance = (1 - currentIndex) * 900
-        scroll_box_ref.current.style.transform = `translate3d(${distance + offset}px, 0, 0)`
+        scroll_box_ref.current.style.transform = `translate3d(${(1 - currentIndex) * 900}px, 0, 0)`
     }
 
     const handleChangeActive = (number) => {
@@ -94,32 +88,14 @@ export default function Carousel() {
                     {arr.map((item, index) => {
                         // 当轮播图处于第一个时，最后一个组件时，提取到最前面去
                         if (currentIndex <= 1 && index + 1 === arr.length) {
-                            return (
-                                <div
-                                    className="scroll_item"
-                                    style={{ left: -1 * 900, background: `url(${item.background}) 100% 100% ` }}
-                                    key={item.id}
-                                ></div>
-                            )
+                            return <div style={{ left: -1 * 900 }}>{}</div>
                         }
                         // 当轮播图处于最后一个时，第一个组件提取到最后面
                         if (currentIndex >= arr.length && index === 0) {
-                            return (
-                                <div
-                                    className="scroll_item"
-                                    style={{ left: arr.length * 900, background: `url(${item.background}) 100% 100%` }}
-                                    key={item.id}
-                                ></div>
-                            )
+                            return <div style={{ left: arr.length * 900 }}>{}</div>
                         }
 
-                        return (
-                            <div
-                                className="scroll_item"
-                                key={item.id}
-                                style={{ background: `url(${item.background}) 100% 100%`, left: index * 900 }}
-                            ></div>
-                        )
+                        return <div className="scroll_item" key={item.id} style={{ background: `url(${item.background}) 100% 100%` }}></div>
                     })}
                 </div>
                 <div onClick={handlePrev} className="buttonLeft">

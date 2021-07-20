@@ -8,12 +8,19 @@
         overflow: hidden;
 
         .point_list {
-            display: flex;
+            list-style: none;
             position: absolute;
-            left: 45%;
-            bottom: 10px;
+            padding: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            width: 800px;
+            height: 200px;
+        }
+        &:hover {
             cursor: pointer;
-            z-index: 2;
         }
         .scroll_box {
             display: flex;
@@ -23,7 +30,6 @@
             transition-duration: 1s;
             transition-property: all;
             transition-timing-function: ease;
-
             .scroll_item {
                 min-width: 900px;
                 justify-content: center;
