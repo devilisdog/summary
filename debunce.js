@@ -34,7 +34,7 @@ function debunce(fun, wait, immediate) {
             //wait时间内，持续滑动鼠标，callNow=false 不执行 fun.call(_this, ...args)
             let callNow = !timer
             timer = setTimeout(() => {
-                callNow = null
+                timer = null
             }, wait)
 
             //立即执行
