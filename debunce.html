@@ -10,6 +10,9 @@
 <body>
     <div id='container'></div>
 
+    <button id='btn'>取消防抖</button>
+
+
     <style>
         #container{
             width: 100%;
@@ -25,6 +28,8 @@
     <script>
         let count = 0
         let container = document.querySelector('#container')
+        let btn = document.querySelector('#btn')
+
 
         function doSomething(e){
              console.log(this) 
@@ -36,7 +41,13 @@
             container.innerHTML=count++
         }
 
-        container.onmousemove = debunce(doSomething,1000,true)
+        let cancelFun=debunce(doSomething,5000)
+
+        btn.onclick=function(){
+            cancelFun.cancel()
+        }
+
+         container.onmousemove = cancelFun
 
 
 

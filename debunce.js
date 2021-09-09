@@ -24,7 +24,7 @@ function debunce_e(fun, wait) {
 }
 
 //立即执行版
-function debunce(fun, wait, immediate) {
+function debunce_immediate(fun, wait, immediate) {
     let timer
     return function () {
         let args = arguments
@@ -47,4 +47,42 @@ function debunce(fun, wait, immediate) {
             }, wait)
         }
     }
+}
+
+//可取消防抖操作
+function debunce(fun, wait, immediate) {
+    let timer, result
+
+    let debunceFun = function () {
+        let args = arguments
+        let _this = this
+
+        if (timer) clearTimeout(timer)
+
+        if (immediate) {
+            //wait时间内，持续滑动鼠标，callNow=false 不执行 fun.call(_this, ...args)
+            let callNow = !timer
+            timer = setTimeout(() => {
+                timer = null
+            }, wait)
+
+            //立即执行
+            if (callNow) {
+                result = fun.call(_this, ...args)
+            }
+        } else {
+            timer = setTimeout(() => {
+                fun.call(_this, ...args)
+            }, wait)
+        }
+
+        return result
+    }
+
+    debunceFun.cancel = function () {
+        clearTimeout(timer)
+        timer = null
+    }
+
+    return debunceFun
 }
