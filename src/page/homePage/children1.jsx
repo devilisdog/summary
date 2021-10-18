@@ -7,6 +7,8 @@ export default function Children1() {
     eventEmitter.on('add', (name, parmas, parmas2) => {
         console.log(name, parmas, parmas2, '接受参数')
         setdata(parmas.data)
+
+        //to do something
     })
 
     return (
